@@ -3,23 +3,23 @@ from django import forms
 
 class ClientesForm(forms.Form):
     #especifico campos
-    nombre_cli = forms.CharField(max_length=50)
-    tipo_cli = forms.CharField(max_length=50)
-    direccion_cli = forms.CharField(max_length=50)
-    email_cli = forms.EmailField()
-    fecha_alta_cli= forms.DateField()
+    nombre = forms.CharField(max_length=50)
+    tipo = forms.CharField(max_length=50)
+    direccion = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    fecha_alta= forms.DateField()
     
 class ProveedoresForm(forms.Form):
-    nombre_prov = forms.CharField(max_length=50)
-    direccion_prov = forms.CharField(max_length=50)
-    email_prov = forms.EmailField()
-    rubro_prov = forms.CharField(max_length=50)
-    fecha_alta_prov= forms.DateField()
+    nombre = forms.CharField(max_length=50)
+    direccion = forms.CharField(max_length=50)
+    email = forms.EmailField()
+    rubro = forms.CharField(max_length=50)
+    fecha_alta= forms.DateField()
 
 class ArticulosForm(forms.Form):
-    codigo_sku_art = forms.CharField(max_length=50)
-    nombre_art= forms.CharField(max_length=50)
-    familia_art= forms.CharField(max_length=50)
-    stock_art= forms.IntegerField()
-    costo_art= forms.FloatField()
-    precio_venta_art= forms.FloatField()
+    codigo_sku = forms.CharField(max_length=50)
+    nombre= forms.CharField(max_length=50)
+    familia= forms.CharField(max_length=50)
+    stock= forms.IntegerField()
+    costo= forms.FloatField()
+    precio_venta= forms.FloatField()

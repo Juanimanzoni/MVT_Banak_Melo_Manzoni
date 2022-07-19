@@ -1,0 +1,34 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    {% if respuesta %}
+        <H3>{{respuesta}}</H3>
+
+    {% else %}
+        {% if clientes %}
+
+        
+            <ul>
+                {% for cliente in clientes %}
+                    <h4>{{cliente.nombre_cli}} - {{cliente.tipo_cli}} </h4>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <H3>No hay clientes con ese nombre</H3>
+        {% endif %}
+    {% endif %}
+    
+    
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+    
+    
+    
+{% endblock %}
+    
+
+

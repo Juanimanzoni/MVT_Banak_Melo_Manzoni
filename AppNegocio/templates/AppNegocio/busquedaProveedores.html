@@ -1,0 +1,38 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+
+
+
+    {% if formulario.errors %}
+        <p style="color:red">Hay algo mal en el formulario</p>
+        {% endif %}
+
+        {% if error %}
+            <p style="color:red"> {{error}} </p>
+        {% endif %}
+        <br>
+        <form action="{% url 'buscarProveedores' %}" method="GET"> 
+        
+        
+        <h3>Buscar proveedores por nombre</h3><br><br>
+        <h4>Nombre del proveedor: <input type="text" name="nombre" id="nombre"></h4>
+
+        
+        <br>
+        <br>
+        <input type="submit" value="Buscar">
+
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+        
+        
+        
+{% endblock %}
+
+

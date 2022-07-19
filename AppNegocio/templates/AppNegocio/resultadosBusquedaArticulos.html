@@ -1,0 +1,34 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    {% if respuesta %}
+        <H3>{{respuesta}}</H3>
+
+    {% else %}
+        {% if articulos %}
+
+        
+            <ul>
+                {% for articulo in articulos %}
+                    <h4>{{articulo.nombre_art}} - {{articulo.familia_art}} - #SKU:  {{articulo.codigo_sku_art}} </h4>
+                    <br>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <H3>No hay articulos con ese nombre</H3>
+        {% endif %}
+    {% endif %}
+    
+    
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+    
+    
+    
+{% endblock %}
+    
+
+

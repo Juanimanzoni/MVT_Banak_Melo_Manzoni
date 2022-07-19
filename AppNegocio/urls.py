@@ -11,5 +11,10 @@ urlpatterns = [
     path('clientesFormulario/', clientesFormulario, name='clientesFormulario'),
     path('proveedoresFormulario/', proveedoresFormulario, name='proveedoresFormulario'),
     path('articulosFormulario/', articulosFormulario, name='articulosFormulario'),
-    
+    path('busquedaClientes/', busquedaClientes, name='busquedaClientes'),
+    path('buscarClientes/', buscarClientes,name="buscarClientes"),
+    path('busquedaProveedores/', busquedaProveedores, name='busquedaProveedores'),
+    path('buscarProveedores/', buscarProveedores, name='buscarProveedores'),
+    path('busquedaArticulos/', busquedaArticulos, name='busquedaArticulos'),
+    path('buscarArticulos/', buscarArticulos, name='buscarArticulos'),
 ]

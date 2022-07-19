@@ -2,11 +2,9 @@
 {% load static %}
 
 {% block titulo %}
+
 <h1 class="mb-5">Cargar Clientes</h1>
-{% endblock %}
-
-
-{% block contenido_que_cambia %}
+<br>
 
 {% if formulario.errors %}
         <p style="color:red">Hay algo mal en el formulario</p>
@@ -14,10 +12,27 @@
     <br>
     <form action="{% url 'clientesFormulario' %}" method="POST"> {% csrf_token %}
         
-        <table>
+        <style>
+            
+            
+            table.center {
+              margin-left: auto; 
+              margin-right: auto;
+            }
+        </style>
+
+        <table class="center">
             {{formulario.as_table}}
         </table>
+        <br>
         <input type="submit" value="Enviar">
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
 
 {% endblock %}
 

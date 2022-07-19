@@ -25,12 +25,12 @@ def clientesFormulario(request):
         form=ClientesForm(request.POST)
         if form.is_valid():
             info=form.cleaned_data
-            nombre_cli=info["nombre_cli"]
-            tipo_cli=info["tipo_cli"]
-            direccion_cli=info["direccion_cli"]
-            email_cli=info["email_cli"]
-            fecha_alta_cli=info["fecha_alta_cli"]
-            clientes= Clientes(nombre_cli=nombre_cli, tipo_cli=tipo_cli, direccion_cli=direccion_cli, email_cli=email_cli, fecha_alta_cli=fecha_alta_cli)
+            nombre=info["nombre"]
+            tipo=info["tipo"]
+            direccion=info["direccion"]
+            email=info["email"]
+            fecha_alta=info["fecha_alta"]
+            clientes= Clientes(nombre_cli=nombre, tipo_cli=tipo, direccion_cli=direccion, email_cli=email, fecha_alta_cli=fecha_alta)
             clientes.save()
             return render(request, "AppNegocio/inicio.html")
     else:
@@ -43,12 +43,12 @@ def proveedoresFormulario(request):
         form=ProveedoresForm(request.POST)
         if form.is_valid():
             info=form.cleaned_data
-            nombre_prov=info["nombre_prov"]
-            direccion_prov=info["direccion_prov"]
-            email_prov=info["email_prov"]
-            rubro_prov=info["rubro_prov"]
-            fecha_alta_prov=info["fecha_alta_prov"]
-            proveedores= Proveedores(nombre_prov=nombre_prov, direccion_prov=direccion_prov, email_prov=email_prov, rubro_prov=rubro_prov, fecha_alta_prov=fecha_alta_prov)
+            nombre=info["nombre"]
+            direccion=info["direccion"]
+            email=info["email"]
+            rubro=info["rubro"]
+            fecha_alta=info["fecha_alta"]
+            proveedores= Proveedores(nombre_prov=nombre, direccion_prov=direccion, email_prov=email, rubro_prov=rubro, fecha_alta_prov=fecha_alta)
             proveedores.save()
             return render(request, "AppNegocio/inicio.html")
     else:
@@ -61,14 +61,14 @@ def articulosFormulario(request):
         form=ArticulosForm(request.POST)
         if form.is_valid():
             info=form.cleaned_data
-            codigo_sku_art=info["codigo_sku_art"]
-            nombre_art=info["nombre_art"]
-            familia_art=info["familia_art"]
-            stock_art=info["stock_art"]
-            costo_art=info["costo_art"]
-            precio_venta_art=info["precio_venta_art"]
+            codigo_sku=info["codigo_sku"]
+            nombre=info["nombre"]
+            familia=info["familia"]
+            stock=info["stock"]
+            costo=info["costo"]
+            precio_venta=info["precio_venta"]
 
-            articulos= Articulos(codigo_sku_art=codigo_sku_art, nombre_art=nombre_art, familia_art=familia_art, stock_art=stock_art, costo_art=costo_art, precio_venta_art=precio_venta_art,)
+            articulos= Articulos(codigo_sku_art=codigo_sku, nombre_art=nombre, familia_art=familia, stock_art=stock, costo_art=costo, precio_venta_art=precio_venta,)
             articulos.save()
             return render(request, "AppNegocio/inicio.html")
     else:
@@ -76,4 +76,38 @@ def articulosFormulario(request):
 
     return render(request, "AppNegocio/articulosFormulario.html",{"formulario":form})
 
+def busquedaClientes(request):
+    return render(request, "AppNegocio/busquedaClientes.html")
 
+def buscarClientes(request):
+    if request.GET["nombre"]:
+        nombre=request.GET["nombre"]
+        clientes=Clientes.objects.filter(nombre_cli__icontains=nombre)
+        return render(request,"AppNegocio/resultadosBusquedaClientes.html", {"clientes":clientes})
+    else:
+        respuesta = "No se ingresó ningún nombre de cliente"
+    return render(request, "AppNegocio/resultadosBusquedaClientes.html",{"respuesta":respuesta})
+
+def busquedaProveedores(request):
+    return render(request, "AppNegocio/busquedaProveedores.html")
+
+def buscarProveedores(request):
+    if request.GET["nombre"]:
+        nombre=request.GET["nombre"]
+        proveedores=Proveedores.objects.filter(nombre_prov__icontains=nombre)
+        return render(request,"AppNegocio/resultadosBusquedaProveedores.html", {"proveedores":proveedores})
+    else:
+        respuesta = "No se ingresó ningún nombre de proveedor"
+    return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
+
+def busquedaArticulos(request):
+    return render(request, "AppNegocio/busquedaArticulos.html")
+
+def buscarArticulos(request):
+    if request.GET["nombre"]:
+        nombre=request.GET["nombre"]
+        articulos=Articulos.objects.filter(nombre_art__icontains=nombre)
+        return render(request,"AppNegocio/resultadosBusquedaArticulos.html", {"articulos":articulos})
+    else:
+        respuesta = "No se ingresó ningún nombre de artículo"
+    return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
