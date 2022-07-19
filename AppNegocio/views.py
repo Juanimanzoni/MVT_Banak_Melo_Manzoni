@@ -123,3 +123,78 @@ def todosProveedores(request):
 def todosArticulos(request):
     articulos=Articulos.objects.all()
     return render (request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
+
+def eliminarClientes(request, nombre_clientes):
+    cliente=Clientes.objects.get(nombre_cli=nombre_clientes)
+    cliente.delete()
+    clientes=Clientes.objects.all()
+    return render (request, "AppNegocio/todosClientes.html",{"clientes":clientes})
+
+def eliminarProveedores(request, nombre_proveedores):
+    proveedor=Proveedores.objects.get(nombre_prov=nombre_proveedores)
+    proveedor.delete()
+    proveedores=Proveedores.objects.all()
+    return render (request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
+
+def eliminarArticulos(request, nombre_articulos):
+    articulo= Articulos.objects.get(nombre_art=nombre_articulos)
+    articulo.delete()
+    articulos= Articulos.objects.all()
+    return render (request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
+
+def editarClientes(request, nombre_clientes):
+    cliente=Clientes.objects.get(nombre_cli=nombre_clientes)
+    if request.method=="POST":
+        form=ClientesForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            cliente.nombre_cli=info["nombre"]
+            cliente.tipo_cli=info["tipo"]
+            cliente.direccion_cli=info["direccion"]
+            cliente.email_cli=info["email"]
+            cliente.fecha_alta_cli=info["fecha_alta"]
+            cliente.save()
+            return render(request, "AppNegocio/inicio.html")
+    else:
+        form=ClientesForm(initial={"nombre":cliente.nombre_cli, "tipo":cliente.tipo_cli, "direccion":cliente.direccion_cli, "email":cliente.email_cli, "fecha_alta":cliente.fecha_alta_cli})
+    return render(request, "AppNegocio/editarClientes.html",{"formulario":form, "nombre_clientes":nombre_clientes})
+
+
+def editarArticulos(request, nombre_articulos):
+    articulo=Articulos.objects.get(nombre_art=nombre_articulos)
+    if request.method=="POST":
+        form=ArticulosForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            articulo.codigo_sku_art=info["codigo_sku"]
+            articulo.nombre_art=info["nombre"]
+            articulo.familia_art=info["familia"]
+            articulo.stock_art=info["stock"]
+            articulo.costo_art=info["costo"]
+            articulo.precio_venta_art=info["precio_venta"]
+            articulo.save()
+            return render(request, "AppNegocio/inicio.html")
+    else:
+        form=ArticulosForm(initial={"codigo_sku":articulo.codigo_sku_art, "nombre":articulo.nombre_art, "familia":articulo.familia_art, "stock":articulo.stock_art, "costo":articulo.costo_art,"precio_venta":articulo.precio_venta_art })
+    return render(request, "AppNegocio/editarArticulos.html",{"formulario":form, "nombre_articulos":nombre_articulos})
+
+
+
+def editarProveedores(request, nombre_proveedores):
+    proveedor=Proveedores.objects.get(nombre_prov=nombre_proveedores)
+    if request.method=="POST":
+        form=ProveedoresForm(request.POST)
+        if form.is_valid():
+            info=form.cleaned_data
+            proveedor.nombre_prov=info["nombre"]
+            proveedor.direccion_prov=info["direccion"]
+            proveedor.email_prov=info["email"]
+            proveedor.rubro_prov=info["rubro"]
+            proveedor.fecha_alta_prov=info["fecha_alta"]
+            proveedor.save()
+            return render(request, "AppNegocio/inicio.html")
+    else:
+        form=ProveedoresForm(initial={"nombre":proveedor.nombre_prov, "direccion":proveedor.direccion_prov, "email":proveedor.email_prov, "rubro":proveedor.rubro_prov, "fecha_alta":proveedor.fecha_alta_prov})
+    return render(request, "AppNegocio/editarProveedores.html",{"formulario":form, "nombre_proveedores":nombre_proveedores})
+
+

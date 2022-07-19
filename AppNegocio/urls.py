@@ -20,4 +20,10 @@ urlpatterns = [
     path('todosArticulos/', todosArticulos, name='todosArticulos'),
     path('todosClientes/', todosClientes, name='todosClientes'),
     path('todosProveedores/', todosProveedores, name='todosProveedores'),
+    path('eliminarClientes/<nombre_clientes>',eliminarClientes,name='eliminarClientes'),
+    path('eliminarArticulos/<nombre_articulos>',eliminarArticulos,name='eliminarArticulos'),
+    path('eliminarProveedores/<nombre_proveedores>',eliminarProveedores,name='eliminarProveedores'),
+    path('editarClientes/<nombre_clientes>', editarClientes, name='editarClientes'),
+    path('editarArticulos/<nombre_articulos>', editarArticulos, name='editarArticulos'),
+    path('editarProveedores/<nombre_proveedores>', editarProveedores, name='editarProveedores'),
 ]

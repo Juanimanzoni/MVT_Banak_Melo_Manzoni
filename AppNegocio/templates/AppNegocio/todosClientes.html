@@ -5,7 +5,14 @@
 
 <ul>
     {% for cliente in clientes %}
-        <h4>{{cliente.nombre_cli}} - {{cliente.tipo_cli}} </h4>
+        <h4>{{cliente.nombre_cli}} - {{cliente.tipo_cli}} 
+            <button>
+                <a href="{% url 'eliminarClientes' cliente.nombre_cli %}">Eliminar</a>
+            </button>
+            <button>
+                <a href="{% url 'editarClientes' cliente.nombre_cli %}">Editar</a>
+            </button>
+        </h4>
         <br>
     {% endfor %}
 </ul>
