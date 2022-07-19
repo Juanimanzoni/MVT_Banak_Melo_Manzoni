@@ -111,3 +111,15 @@ def buscarArticulos(request):
     else:
         respuesta = "No se ingresó ningún nombre de artículo"
     return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
+
+def todosClientes(request):
+    clientes=Clientes.objects.all()
+    return render (request, "AppNegocio/todosClientes.html",{"clientes":clientes})
+
+def todosProveedores(request):
+    proveedores=Proveedores.objects.all()
+    return render (request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
+
+def todosArticulos(request):
+    articulos=Articulos.objects.all()
+    return render (request, "AppNegocio/todosArticulos.html",{"articulos":articulos})

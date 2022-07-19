@@ -1,0 +1,21 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<ul>
+    {% for proveedor in proveedores %}
+        <h4>{{proveedor.nombre_prov}} - {{proveedor.rubro_prov}} </h4>
+        <br>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
+
+{% endblock %}

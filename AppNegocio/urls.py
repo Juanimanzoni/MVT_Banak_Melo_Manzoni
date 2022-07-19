@@ -17,4 +17,7 @@ urlpatterns = [
     path('buscarProveedores/', buscarProveedores, name='buscarProveedores'),
     path('busquedaArticulos/', busquedaArticulos, name='busquedaArticulos'),
     path('buscarArticulos/', buscarArticulos, name='buscarArticulos'),
+    path('todosArticulos/', todosArticulos, name='todosArticulos'),
+    path('todosClientes/', todosClientes, name='todosClientes'),
+    path('todosProveedores/', todosProveedores, name='todosProveedores'),
 ]

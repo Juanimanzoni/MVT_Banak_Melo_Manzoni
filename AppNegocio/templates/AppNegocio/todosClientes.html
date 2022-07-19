@@ -1,0 +1,20 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<ul>
+    {% for cliente in clientes %}
+        <h4>{{cliente.nombre_cli}} - {{cliente.tipo_cli}} </h4>
+        <br>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
+
+{% endblock %}

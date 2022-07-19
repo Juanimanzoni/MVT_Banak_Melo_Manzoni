@@ -1,0 +1,21 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+
+<ul>
+    {% for articulo in articulos %}
+        <h4>{{articulo.nombre_art}} - {{articulo.familia_art}} - #SKU:  {{articulo.codigo_sku_art}} </h4>
+        <br>
+    {% endfor %}
+</ul>
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
+
+{% endblock %}
