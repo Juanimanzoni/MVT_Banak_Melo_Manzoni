@@ -1,19 +1,28 @@
 from ast import Return
 from django import http
 from django.shortcuts import render
-from AppNegocio.models import Clientes, Proveedores, Articulos
+from AppNegocio.models import *
 from django.http import HttpResponse
 from AppNegocio.forms import *
 import datetime
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def inicio(request):
-    return render(request, "AppNegocio/inicio.html")
-
+    
+    if Avatar.objects.filter(user= request.user.id) is not None:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/inicio.html", {"imagen":imagen}) #, {"imagen":imagen}
+    else:
+        return render(request, "AppNegocio/inicio.html")
 def clientes(request):
      return render(request, "AppNegocio/clientes.html")
 
+@login_required
 def proveedores(request):
      return render(request, "AppNegocio/proveedores.html")
 
@@ -198,3 +207,56 @@ def editarProveedores(request, nombre_proveedores):
     return render(request, "AppNegocio/editarProveedores.html",{"formulario":form, "nombre_proveedores":nombre_proveedores})
 
 
+def login_request(request):
+
+    if request.method=="POST":
+        form=AuthenticationForm(request, data = request.POST)
+        if form.is_valid():
+            usu= request.POST['username']
+            clave = request.POST['password']
+            usuario = authenticate(username=usu, password=clave)
+
+            if usuario is not None:
+                login(request, usuario)
+                return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Bienvenido {usuario}'})
+
+            else:
+                return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Usuario o clave incorrectos'})
+        else:
+            return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Formulario invalido'})
+    else:
+        form=AuthenticationForm()
+        return render(request, 'AppNegocio/login.html',{'form':form})
+
+
+def register(request):
+
+    if request.method=="POST":
+        form=UserRegisterForm(request.POST)
+        if form.is_valid():
+            username= form.cleaned_data['username']
+            form.save()
+            return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Usuario Creado: {username}'})
+
+           
+    else:
+        form=UserRegisterForm()
+    return render(request, 'AppNegocio/register.html',{'form':form})
+
+@login_required
+def editarPerfil(request):
+    usuario=request.user
+
+    if request.method == 'POST':
+        formulario=UserEditForm(request.POST, instance=usuario)
+        if formulario.is_valid():
+            informacion=formulario.cleaned_data
+            usuario.email=informacion['email']
+            usuario.password1=informacion['password1']
+            usuario.password2=informacion['password2']
+            usuario.save()
+
+            return render(request, 'AppNegocio/inicio.html', {'usuario':usuario, 'mensaje':'PERFIL EDITADO EXITOSAMENTE'})
+    else:
+        formulario=UserEditForm(instance=usuario)
+    return render(request, 'AppNegocio/editarPerfil.html', {'formulario':formulario, 'usuario':usuario.username})
