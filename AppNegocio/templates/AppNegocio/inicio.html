@@ -8,4 +8,7 @@
 
 {% block contenido_que_cambia %}
 <h3>{{mensaje}}</h3>
+    {% if not request.user.is_authenticated %} 
+        <h5><i>Negocios es un App diseñada para administrar nuestra base de datos de Clientes, Proveedores y Artículos, para poder comenzar debe registrarse.</i></h5>
+    {% endif %}
 {% endblock %}
