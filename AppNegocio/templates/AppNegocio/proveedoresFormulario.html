@@ -2,9 +2,11 @@
 {% load static %}
 
 {% block titulo %}
-<h1 class="mb-5">Cargar Proveedores</h1>
+
+<h1 class="mb-5" style="color:white">Cargar Proveedores</h1>
 <br>
-{% if formulario.errors %}
+
+    {% if formulario.errors %}
         <p style="color:red">Hay algo mal en el formulario</p>
     {% endif %}
     <br>
@@ -19,16 +21,18 @@
             }
         </style>
 
-        <table class="center">
+        <table class="center" style="color:white">
             {{formulario.as_table}}
         </table>
         <br>
         <input type="submit" value="Enviar">
+
 {% endblock %}
+
 
 
 {% block contenido_que_cambia %}
 
 
-
 {% endblock %}
+

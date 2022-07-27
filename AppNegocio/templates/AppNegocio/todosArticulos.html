@@ -5,16 +5,17 @@
 
 
 <ul>
+    <h3 style="color: white">Artículos:</h3>
     {% for articulo in articulos %}
-        <h4>{{articulo.nombre_art}} - {{articulo.familia_art}} - #SKU:  {{articulo.codigo_sku_art}} 
-            <button>
-                <a href="{% url 'eliminarArticulos' articulo.nombre_art %}">Eliminar</a>
+        <h5>{{articulo.nombre_art}} - {{articulo.familia_art}} - #SKU:  {{articulo.codigo_sku_art}} 
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'eliminarArticulos' articulo.nombre_art %}">Eliminar</a>
             </button>
-            <button>
-                <a href="{% url 'editarArticulos' articulo.nombre_art %}">Editar</a>
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'editarArticulos' articulo.nombre_art %}">Editar</a>
             </button>
-        </h4>
-        <br>
+        </h5>
+        
     {% endfor %}
 </ul>
 

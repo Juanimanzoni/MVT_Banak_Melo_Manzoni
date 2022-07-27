@@ -2,15 +2,15 @@
 
 {% load static %}
 
-{% block contenido_que_cambia %}
+{% block titulo %}
 
-<h1>EDITAR PERFIL: {{ usuario }}</h1>
+<h1 style="color:white"><i>EDITAR PERFIL: {{ usuario }}</i></h1>
 
 
 
 <form action="{% url 'editarPerfil'  %}" method="POST"> {% csrf_token %}
 
-    <table>
+    <table style="color:white">
         {{ formulario.as_table }}
     </table>
 

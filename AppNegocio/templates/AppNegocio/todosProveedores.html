@@ -4,18 +4,19 @@
 {% block titulo %}
 
 <ul>
+    <h3 style="color: white">Proveedores:</h3>
     {% for proveedor in proveedores %}
-        <h4>{{proveedor.nombre_prov}} - {{proveedor.rubro_prov}} 
-            <button>
-                <a href="{% url 'eliminarProveedores' proveedor.nombre_prov %}">Eliminar</a>
+        <h5>{{proveedor.nombre_prov}} - {{proveedor.rubro_prov}} 
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'eliminarProveedores' proveedor.nombre_prov %}">Eliminar</a>
             </button>
-            <button>
-                <a href="{% url 'editarProveedores' proveedor.nombre_prov %}">Editar</a>
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'editarProveedores' proveedor.nombre_prov %}">Editar</a>
             </button>
 
 
-        </h4>
-        <br>
+        </h5>
+       
     {% endfor %}
 </ul>
 

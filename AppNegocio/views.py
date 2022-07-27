@@ -1,4 +1,5 @@
 from ast import Return
+from this import d
 from django import http
 from django.shortcuts import render
 from AppNegocio.models import *
@@ -13,22 +14,63 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def inicio(request):
+    #return render(request, "AppNegocio/inicio.html")
     
-    if Avatar.objects.filter(user= request.user.id) is not None:
+    if (str(Avatar.objects.filter(user= request.user.id))!="<QuerySet []>"):
         imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
-        return render(request, "AppNegocio/inicio.html", {"imagen":imagen}) #, {"imagen":imagen}
+        return render(request, "AppNegocio/inicio.html", {"imagen":imagen})
     else:
         return render(request, "AppNegocio/inicio.html")
-def clientes(request):
-     return render(request, "AppNegocio/clientes.html")
 
-@login_required
+       
+    
+
+
+def clientes(request):
+    if not request.user.is_authenticated:
+        return render(request, "AppNegocio/inicio.html",{"mensaje":"Debe ingresar con su usuario y clave para poder acceder a Clientes - En caso de no tener usuario, regístrese."})
+    else:
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request, "AppNegocio/clientes.html")
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/clientes.html", {"imagen":imagen})
+
+
+
+
+
 def proveedores(request):
-     return render(request, "AppNegocio/proveedores.html")
+    if not request.user.is_authenticated:
+        return render(request, "AppNegocio/inicio.html",{"mensaje":"Debe ingresar con su usuario y clave para poder acceder a Proveedores - En caso de no tener usuario, regístrese."})
+    else:
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request, "AppNegocio/proveedores.html")
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/proveedores.html", {"imagen":imagen})
+
+
+
 
 def articulos(request):
-     return render(request, "AppNegocio/articulos.html")
+    if not request.user.is_authenticated:
+        return render(request, "AppNegocio/inicio.html",{"mensaje":"Debe ingresar con su usuario y clave para poder acceder a Artículos - En caso de no tener usuario, regístrese."})
+    else:
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request, "AppNegocio/articulos.html")
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/articulos.html", {"imagen":imagen})
 
+
+@ login_required
 def clientesFormulario(request):
     if request.method =='POST':
         form=ClientesForm(request.POST)
@@ -41,12 +83,29 @@ def clientesFormulario(request):
             fecha_alta=info["fecha_alta"]
             clientes= Clientes(nombre_cli=nombre, tipo_cli=tipo, direccion_cli=direccion, email_cli=email, fecha_alta_cli=fecha_alta)
             clientes.save()
-            return render(request, "AppNegocio/inicio.html")
+            
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html", {"imagen":imagen})
+    
     else:
         form=ClientesForm()  
 
-    return render(request, "AppNegocio/clientesFormulario.html",{"formulario":form})
+    
+    try:
+         imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/clientesFormulario.html",{"formulario":form})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/clientesFormulario.html",{"formulario":form,"imagen":imagen})
+    
 
+@ login_required
 def proveedoresFormulario(request):
     if request.method =='POST':
         form=ProveedoresForm(request.POST)
@@ -59,12 +118,25 @@ def proveedoresFormulario(request):
             fecha_alta=info["fecha_alta"]
             proveedores= Proveedores(nombre_prov=nombre, direccion_prov=direccion, email_prov=email, rubro_prov=rubro, fecha_alta_prov=fecha_alta)
             proveedores.save()
-            return render(request, "AppNegocio/inicio.html")
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html", {"imagen":imagen})
+   
     else:
         form=ProveedoresForm()  
-
-    return render(request, "AppNegocio/proveedoresFormulario.html",{"formulario":form})
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/proveedoresFormulario.html",{"formulario":form})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/proveedoresFormulario.html", {"formulario":form, "imagen":imagen})
+        
+@ login_required
 def articulosFormulario(request):
     if request.method =='POST':
         form=ArticulosForm(request.POST)
@@ -79,78 +151,228 @@ def articulosFormulario(request):
 
             articulos= Articulos(codigo_sku_art=codigo_sku, nombre_art=nombre, familia_art=familia, stock_art=stock, costo_art=costo, precio_venta_art=precio_venta,)
             articulos.save()
-            return render(request, "AppNegocio/inicio.html")
+            
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html", {"imagen":imagen})
+   
     else:
         form=ArticulosForm()  
-
-    return render(request, "AppNegocio/articulosFormulario.html",{"formulario":form})
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/articulosFormulario.html",{"formulario":form})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/articulosFormulario.html", {"formulario":form, "imagen":imagen})
+        
+        
+@ login_required
 def busquedaClientes(request):
-    return render(request, "AppNegocio/busquedaClientes.html")
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/busquedaClientes.html")
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/busquedaClientes.html", {"imagen":imagen})
 
+
+
+@ login_required
 def buscarClientes(request):
     if request.GET["nombre"]:
         nombre=request.GET["nombre"]
         clientes=Clientes.objects.filter(nombre_cli__icontains=nombre)
-        return render(request,"AppNegocio/resultadosBusquedaClientes.html", {"clientes":clientes})
+        
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request,"AppNegocio/resultadosBusquedaClientes.html", {"clientes":clientes})
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/resultadosBusquedaClientes.html", {"clientes":clientes, "imagen":imagen})
+                     
     else:
         respuesta = "No se ingresó ningún nombre de cliente"
-    return render(request, "AppNegocio/resultadosBusquedaClientes.html",{"respuesta":respuesta})
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/resultadosBusquedaClientes.html",{"respuesta":respuesta})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/resultadosBusquedaClientes.html",{"respuesta":respuesta, "imagen":imagen})
 
+  
+@ login_required
 def busquedaProveedores(request):
-    return render(request, "AppNegocio/busquedaProveedores.html")
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/busquedaProveedores.html")
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/busquedaProveedores.html", {"imagen":imagen})
+    
+        
+    
+@ login_required
 def buscarProveedores(request):
     if request.GET["nombre"]:
         nombre=request.GET["nombre"]
         proveedores=Proveedores.objects.filter(nombre_prov__icontains=nombre)
-        return render(request,"AppNegocio/resultadosBusquedaProveedores.html", {"proveedores":proveedores})
+        
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request,"AppNegocio/resultadosBusquedaProveedores.html", {"proveedores":proveedores})
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/resultadosBusquedaProveedores.html", {"proveedores":proveedores, "imagen":imagen})
+       
     else:
         respuesta = "No se ingresó ningún nombre de proveedor"
-    return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta, "imagen":imagen})
 
+    
+@ login_required
 def busquedaArticulos(request):
-    return render(request, "AppNegocio/busquedaArticulos.html")
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/busquedaArticulos.html")
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/busquedaArticulos.html", {"imagen":imagen})
+    
+        
+   
+@ login_required
 def buscarArticulos(request):
     if request.GET["nombre"]:
         nombre=request.GET["nombre"]
         articulos=Articulos.objects.filter(nombre_art__icontains=nombre)
-        return render(request,"AppNegocio/resultadosBusquedaArticulos.html", {"articulos":articulos})
+        
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        except:
+            return render(request,"AppNegocio/resultadosBusquedaArticulos.html", {"articulos":articulos})
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, "AppNegocio/resultadosBusquedaArticulos.html", {"articulos":articulos, "imagen":imagen})
+
+              
     else:
         respuesta = "No se ingresó ningún nombre de artículo"
-    return render(request, "AppNegocio/resultadosBusquedaProveedores.html",{"respuesta":respuesta})
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/resultadosBusquedaArticulos.html",{"respuesta":respuesta})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/resultadosBusquedaArticulos.html",{"respuesta":respuesta, "imagen":imagen})
 
+    
+    
+@ login_required 
 def todosClientes(request):
     clientes=Clientes.objects.all()
-    return render (request, "AppNegocio/todosClientes.html",{"clientes":clientes})
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosClientes.html",{"clientes":clientes})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosClientes.html",{"clientes":clientes, "imagen":imagen})
 
+
+    
+@ login_required
 def todosProveedores(request):
     proveedores=Proveedores.objects.all()
-    return render (request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores, "imagen":imagen})
+    
+    
+@ login_required    
 def todosArticulos(request):
     articulos=Articulos.objects.all()
-    return render (request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
-
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosArticulos.html",{"articulos":articulos, "imagen":imagen})
+    
+    
+    
+@ login_required
 def eliminarClientes(request, nombre_clientes):
     cliente=Clientes.objects.get(nombre_cli=nombre_clientes)
     cliente.delete()
     clientes=Clientes.objects.all()
-    return render (request, "AppNegocio/todosClientes.html",{"clientes":clientes})
-
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosClientes.html",{"clientes":clientes})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosClientes.html",{"clientes":clientes, "imagen":imagen})
+    
+    
+    
+@ login_required  
 def eliminarProveedores(request, nombre_proveedores):
     proveedor=Proveedores.objects.get(nombre_prov=nombre_proveedores)
     proveedor.delete()
     proveedores=Proveedores.objects.all()
-    return render (request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
-
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosProveedores.html",{"proveedores":proveedores, "imagen":imagen})
+    
+    
+    
+@ login_required
 def eliminarArticulos(request, nombre_articulos):
     articulo= Articulos.objects.get(nombre_art=nombre_articulos)
     articulo.delete()
     articulos= Articulos.objects.all()
-    return render (request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
-
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosArticulos.html",{"articulos":articulos})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosArticulos.html",{"articulos":articulos, "imagen":imagen})
+    
+    
+    
+@ login_required
 def editarClientes(request, nombre_clientes):
     cliente=Clientes.objects.get(nombre_cli=nombre_clientes)
     if request.method=="POST":
@@ -163,12 +385,29 @@ def editarClientes(request, nombre_clientes):
             cliente.email_cli=info["email"]
             cliente.fecha_alta_cli=info["fecha_alta"]
             cliente.save()
-            return render(request, "AppNegocio/inicio.html")
+            
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/clientes.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/clientes.html",{"imagen":imagen})
+            
     else:
         form=ClientesForm(initial={"nombre":cliente.nombre_cli, "tipo":cliente.tipo_cli, "direccion":cliente.direccion_cli, "email":cliente.email_cli, "fecha_alta":cliente.fecha_alta_cli})
-    return render(request, "AppNegocio/editarClientes.html",{"formulario":form, "nombre_clientes":nombre_clientes})
-
-
+  
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/editarClientes.html",{"formulario":form, "nombre_clientes":nombre_clientes})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/editarClientes.html",{"formulario":form, "nombre_clientes":nombre_clientes, "imagen":imagen})
+    
+    
+    
+@ login_required    
 def editarArticulos(request, nombre_articulos):
     articulo=Articulos.objects.get(nombre_art=nombre_articulos)
     if request.method=="POST":
@@ -182,13 +421,30 @@ def editarArticulos(request, nombre_articulos):
             articulo.costo_art=info["costo"]
             articulo.precio_venta_art=info["precio_venta"]
             articulo.save()
-            return render(request, "AppNegocio/inicio.html")
+            
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html",{"imagen":imagen})
+
+            
+              
     else:
         form=ArticulosForm(initial={"codigo_sku":articulo.codigo_sku_art, "nombre":articulo.nombre_art, "familia":articulo.familia_art, "stock":articulo.stock_art, "costo":articulo.costo_art,"precio_venta":articulo.precio_venta_art })
-    return render(request, "AppNegocio/editarArticulos.html",{"formulario":form, "nombre_articulos":nombre_articulos})
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/editarArticulos.html",{"formulario":form, "nombre_articulos":nombre_articulos})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/editarArticulos.html",{"formulario":form, "nombre_articulos":nombre_articulos, "imagen":imagen})
 
-
-
+  
+@ login_required
 def editarProveedores(request, nombre_proveedores):
     proveedor=Proveedores.objects.get(nombre_prov=nombre_proveedores)
     if request.method=="POST":
@@ -201,11 +457,28 @@ def editarProveedores(request, nombre_proveedores):
             proveedor.rubro_prov=info["rubro"]
             proveedor.fecha_alta_prov=info["fecha_alta"]
             proveedor.save()
-            return render(request, "AppNegocio/inicio.html")
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html")
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html",{"imagen":imagen})
+
+                    
     else:
         form=ProveedoresForm(initial={"nombre":proveedor.nombre_prov, "direccion":proveedor.direccion_prov, "email":proveedor.email_prov, "rubro":proveedor.rubro_prov, "fecha_alta":proveedor.fecha_alta_prov})
-    return render(request, "AppNegocio/editarProveedores.html",{"formulario":form, "nombre_proveedores":nombre_proveedores})
+    
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/editarProveedores.html",{"formulario":form, "nombre_proveedores":nombre_proveedores})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/editarProveedores.html",{"formulario":form, "nombre_proveedores":nombre_proveedores, "imagen":imagen})
 
+    
+   
 
 def login_request(request):
 
@@ -218,16 +491,49 @@ def login_request(request):
 
             if usuario is not None:
                 login(request, usuario)
-                return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Bienvenido {usuario}'})
+                
+                try:
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                except:
+                    return render(request, "AppNegocio/inicio.html",{'form':form, 'mensaje':f'Bienvenido {usuario}'})
+                else:
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                    return render(request, "AppNegocio/inicio.html", {'form':form, 'mensaje':f'Bienvenido {usuario}', "imagen":imagen})
 
+                
             else:
-                return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Usuario o clave incorrectos'})
+                try:
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                except:
+                    return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Usuario o clave incorrectos'})
+                else:
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                    return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Usuario o clave incorrectos', "imagen":imagen})
+
+               
+                
         else:
-            return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Formulario invalido'})
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url          
+            except:
+                return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Formulario invalido'})
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, 'AppNegocio/login.html',{'form':form, 'mensaje':'Formulario invalido', "imagen":imagen})
+            
+        
     else:
         form=AuthenticationForm()
-        return render(request, 'AppNegocio/login.html',{'form':form})
-
+        
+        try:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url          
+        except:
+            return render(request, 'AppNegocio/login.html',{'form':form})
+        else:
+            imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            return render(request, 'AppNegocio/login.html',{'form':form, "imagen":imagen})
+            
+  
 
 def register(request):
 
@@ -236,12 +542,27 @@ def register(request):
         if form.is_valid():
             username= form.cleaned_data['username']
             form.save()
-            return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Usuario Creado: {username}'})
-
+                
+            
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Usuario Creado: {username}'})
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, 'AppNegocio/inicio.html',{'form':form, 'mensaje':f'Usuario Creado: {username}', "imagen":imagen})
+            
            
     else:
         form=UserRegisterForm()
-    return render(request, 'AppNegocio/register.html',{'form':form})
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/register.html",{'form':form})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/register.html", {'form':form,  "imagen":imagen})
+
 
 @login_required
 def editarPerfil(request):
@@ -255,8 +576,73 @@ def editarPerfil(request):
             usuario.password1=informacion['password1']
             usuario.password2=informacion['password2']
             usuario.save()
+            try:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+            except:
+                return render(request, "AppNegocio/inicio.html",{'usuario':usuario, 'mensaje':'Perfil Editado Exitosamente'})
+            else:
+                imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                return render(request, "AppNegocio/inicio.html", {'usuario':usuario, 'mensaje':'Perfil Editado Exitosamente', "imagen":imagen})
 
-            return render(request, 'AppNegocio/inicio.html', {'usuario':usuario, 'mensaje':'PERFIL EDITADO EXITOSAMENTE'})
     else:
         formulario=UserEditForm(instance=usuario)
-    return render(request, 'AppNegocio/editarPerfil.html', {'formulario':formulario, 'usuario':usuario.username})
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/editarPerfil.html",{'formulario':formulario, 'usuario':usuario.username})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/editarPerfil.html", {'formulario':formulario, 'usuario':usuario.username, "imagen":imagen})
+
+    
+   
+
+
+
+@ login_required
+def agregarAvatar(request):
+    if request.method == 'POST':
+        formulario=AvatarForm(request.POST, request.FILES)
+        if formulario.is_valid():
+            
+            try:#si el user no tenia avatar pitaba porque no podia asignar avatar viejo
+                Avatar.objects.get(user=request.user)
+            except:
+                avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+                avatar.save()
+
+                if (str(Avatar.objects.filter(user= request.user.id))!="<QuerySet []>"):
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                    return render(request, 'AppNegocio/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado exitosamente', "imagen":imagen})
+                else:
+                    return render(request, 'AppNegocio/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado exitosamente'})
+                
+                
+                
+            else:#si no pito borro anterior
+                avatarViejo=Avatar.objects.get(user=request.user)
+                if(avatarViejo.imagen):
+                    avatarViejo.delete()
+                avatar=Avatar(user=request.user, imagen=formulario.cleaned_data['imagen'])
+                avatar.save()
+
+                if (str(Avatar.objects.filter(user= request.user.id))!="<QuerySet []>"):
+                    imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+                    return render(request, 'AppNegocio/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado exitosamente', "imagen":imagen})
+                else:
+                    return render(request, 'AppNegocio/inicio.html', {'usuario':request.user, 'mensaje':'Avatar agregado exitosamente'})
+          
+    else:
+        formulario=AvatarForm()
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/agregarAvatar.html",{'formulario':formulario, 'usuario':request.user})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/agregarAvatar.html", {'formulario':formulario, 'usuario':request.user, "imagen":imagen})
+    
+   
+ 
+
+

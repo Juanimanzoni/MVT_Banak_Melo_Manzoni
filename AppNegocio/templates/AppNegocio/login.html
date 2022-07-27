@@ -4,12 +4,7 @@
 {% block titulo %}
 
 <h1 class="mb-5">LOGIN</h1>
-
-
-{% endblock %}
-
-
-{% block contenido_que_cambia %}
+<br>
 <form action="{% url 'login' %}" method="POST"> {% csrf_token %}
         
     {{ form.as_p }}
@@ -17,4 +12,10 @@
     <button type="submit">INICIAR SESION</button>
 
 </form>
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
 {% endblock %}

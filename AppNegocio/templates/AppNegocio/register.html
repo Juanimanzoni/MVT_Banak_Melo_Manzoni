@@ -4,17 +4,35 @@
 
 
 {% block titulo %}
-<h1 class="mb-5">REGISTRO</h1>
-{% endblock %}
-
-{% block contenido_que_cambia %}
-    <h1>{{ mensaje  }}</h1>
+<h3 class="mb-5">Registrar nuevo usuario</h3>
+<br>
+<h3>{{ mensaje  }}</h3>
     <form action="{% url 'register' %}"  method="POST"> {% csrf_token %}
 
-        {{ form.as_p }}
+        <style>
+            
+            
+            table.center {
+              margin-left: auto; 
+              margin-right: auto;
+            }
+        </style>
+
+        <table class="center">
+            {{form.as_table}}
+        </table>
+        <br>
+
+
+       
         <button type="submit">REGISTRATE</button>
 
     </form>
+
+{% endblock %}
+
+{% block contenido_que_cambia %}
+    
 
     
 

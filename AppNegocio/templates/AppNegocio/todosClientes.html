@@ -4,16 +4,17 @@
 {% block titulo %}
 
 <ul>
+    <h3 style="color: white">Clientes:</h3>
     {% for cliente in clientes %}
-        <h4>{{cliente.nombre_cli}} - {{cliente.tipo_cli}} 
-            <button>
-                <a href="{% url 'eliminarClientes' cliente.nombre_cli %}">Eliminar</a>
+        <h5>{{cliente.nombre_cli}} - {{cliente.tipo_cli}}     
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'eliminarClientes' cliente.nombre_cli %}">Eliminar</a>
             </button>
-            <button>
-                <a href="{% url 'editarClientes' cliente.nombre_cli %}">Editar</a>
+            <button type="button" class="btn btn-link">
+                <a style="color:white" href="{% url 'editarClientes' cliente.nombre_cli %}">Editar</a>
             </button>
-        </h4>
-        <br>
+        </h5>
+        
     {% endfor %}
 </ul>
 
