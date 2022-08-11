@@ -643,6 +643,12 @@ def agregarAvatar(request):
         return render(request, "AppNegocio/agregarAvatar.html", {'formulario':formulario, 'usuario':request.user, "imagen":imagen})
     
    
- 
-
+def about(request):
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+    except:
+        return render(request, "AppNegocio/about.html")
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/about.html", {"imagen":imagen})#ver si paso las otras imagenes
 

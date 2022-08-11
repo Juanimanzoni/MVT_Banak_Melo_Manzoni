@@ -9,14 +9,14 @@ class ClientesForm(forms.Form):
     tipo = forms.CharField(max_length=50)
     direccion = forms.CharField(max_length=50)
     email = forms.EmailField()
-    fecha_alta= forms.DateField()
+    fecha_alta= forms.DateField(input_formats=['%d/%m/%Y'])
     
 class ProveedoresForm(forms.Form):
     nombre = forms.CharField(max_length=50)
     direccion = forms.CharField(max_length=50)
     email = forms.EmailField()
     rubro = forms.CharField(max_length=50)
-    fecha_alta= forms.DateField()
+    fecha_alta= forms.DateField(input_formats=['%d/%m/%Y'])
 
 class ArticulosForm(forms.Form):
     codigo_sku = forms.CharField(max_length=50)
