@@ -1,0 +1,37 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<ul>
+    <h3 style="color: white">Usuarios:
+        <button type="button" class="btn btn-link">
+            <a style="color:white">Ver Chat Global</a>
+        </button>
+    </h3>
+</ul>
+<h3><br></h3>
+<table>
+    {% for usuario in usuarios %}
+        {% if request.user.username == usuario.username %}
+        {% else %}
+            <h6>{{usuario.username}}
+                <button type="button" class="btn btn-link">
+                    <a style="color:white">Ver Chat</a>
+                </button>
+            </h6>
+                    
+        {% endif %}
+    {% endfor %}
+</table>
+
+
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
+
+{% endblock %}

@@ -44,4 +44,5 @@ urlpatterns = [
     path('agregarAvatar/', agregarAvatar, name='agregarAvatar'),
 
     path('about/', about, name='about'),
+    path('todosUsuarios/', todosUsuarios, name='todosUsuarios'),
 ]

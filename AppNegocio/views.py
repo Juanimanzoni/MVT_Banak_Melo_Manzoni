@@ -10,7 +10,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model #ver si es necesario
 
 # Create your views here.
 def inicio(request):
@@ -651,4 +652,20 @@ def about(request):
     else:
         imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
         return render(request, "AppNegocio/about.html", {"imagen":imagen})#ver si paso las otras imagenes
+
+@ login_required 
+def todosUsuarios(request):
+
+    #print(request.user.username)
+            
+
+    usuarios=User.objects.values()
+    try:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
+    except:
+        return render(request, "AppNegocio/todosUsuarios.html",{"usuarios":usuarios})
+    else:
+        imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url
+        return render(request, "AppNegocio/todosUsuarios.html",{"usuarios":usuarios, "imagen":imagen})
+
 
