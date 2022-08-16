@@ -64,11 +64,9 @@ def chatGlobal(request):
         
 @ login_required
 def marcarLeido(request, id):
-    print('antes')
     mensaje=Mensajes.objects.get(pk=id)
     mensaje.leido_mensaje=True
     mensaje.save
-    print('despues')
     mensajes=Mensajes.objects.filter(receptor_mensaje='Todos')
     
 
@@ -118,7 +116,6 @@ def mensajeIndivFormulario(request, tercero):
 @ login_required 
 def chatIndiv(request, username):
     mensajes=Mensajes.objects.filter(Q(emisor_mensaje=request.user.username, receptor_mensaje=username)|Q(emisor_mensaje=username, receptor_mensaje=request.user.username))
-    print(mensajes)
     try:
         imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   
     except:
