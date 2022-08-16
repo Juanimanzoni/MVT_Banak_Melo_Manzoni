@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from AppNegocio.views import *
+from AppMensajes.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path('',inicio,name='inicio'),
     path('admin/', admin.site.urls),
     path('AppNegocio/', include('AppNegocio.urls')),
+    path('AppMensajes/', include('AppMensajes.urls')),
 
 ]
 

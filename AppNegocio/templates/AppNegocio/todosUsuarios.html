@@ -6,7 +6,7 @@
 <ul>
     <h3 style="color: white">Usuarios:
         <button type="button" class="btn btn-link">
-            <a style="color:white">Ver Chat Global</a>
+            <a style="color:white" href="{% url 'chatGlobal'  %}">Ver Chat Global</a>
         </button>
     </h3>
 </ul>
@@ -17,7 +17,7 @@
         {% else %}
             <h6>{{usuario.username}}
                 <button type="button" class="btn btn-link">
-                    <a style="color:white">Ver Chat</a>
+                    <a style="color:white" href="{% url 'chatIndiv' %}">Ver Chat Individual</a>
                 </button>
             </h6>
                     

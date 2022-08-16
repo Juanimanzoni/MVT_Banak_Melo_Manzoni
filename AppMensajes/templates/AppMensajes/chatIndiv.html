@@ -1,0 +1,48 @@
+{% extends "AppNegocio/padre.html" %}
+{% load static %}
+
+{% block titulo %}
+
+<h3 class="mb-5" style="color:white">Chat
+<br>
+<button type="button" class="btn btn-link">
+    <a style="color:white" href="{% url 'mensajeIndivFormulario' %}">Enviar Mensaje</a> <br>
+</button>
+</h3>
+<ul>
+    {% for mensaje in mensajes %}
+        <ul>
+            <h5>
+                De: {{ mensaje.emisor_mensaje }}<br>
+                Fecha: {{ mensaje.fecha_mensaje }}<br>
+                Mensaje:<br> 
+                {{ mensaje.texto_mensaje }}<br>
+                <img src="{{ mensaje.imagen_mensaje }}"  alt="Sin Imagen"  width="60" 
+                height="50"/> <br>
+                
+                {% if mensaje.leido_mensaje is False %}
+                    <button type="button" class="btn btn-link">
+                        <a style="color:blue" href="{%  url 'marcarLeidoIndiv' mensaje.id %}">Marcar Leído</a> <br>
+                    </button>
+                {% endif %}
+
+            </h5>
+        </ul>
+
+    {% endfor %}
+</ul>
+
+
+
+
+{% endblock %}
+
+
+{% block contenido_que_cambia %}
+
+
+
+{% endblock %}
+
+
+
