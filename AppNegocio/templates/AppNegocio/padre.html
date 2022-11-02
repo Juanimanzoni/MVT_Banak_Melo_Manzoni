@@ -19,29 +19,28 @@
     <body>
         <!-- Navigation-->
         
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav"></nav>
-            <br>
-            <div class="container px-4 px-lg-5">
-                <ul class="nav justify-content-end">
+        <nav class="navbar navbar-light bg-light static-top">
+            <div class="container" style="display:inline-flex; justify-content:end;">
+                
                 
                         {% if not request.user.is_authenticated %} 
-                            <a class="navbar-brand" style="color:black" href="{% url 'register' %}"><h4>Registrar Usuario</h4></a>
+                            <a class="navbar-brand"  href="{% url 'register' %}"><h4>Registrar Usuario</h4></a>
                         {% else %}
                             
                             {% if imagen is None %}
-                                <a class="navbar-brand" style="color:black" href="{% url 'agregarAvatar' %}"><h4>Elegir Avatar</h4></a>
+                                <a class="navbar-brand"  href="{% url 'agregarAvatar' %}"><h4>Elegir Avatar</h4></a>
                             {% else %}
-                                <a class="navbar-brand" style="color:black" href="{% url 'agregarAvatar' %}"><h4>Cambiar Avatar</h4></a>
+                                <a class="navbar-brand"  href="{% url 'agregarAvatar' %}"><h4>Cambiar Avatar</h4></a>
                             {% endif %}
                             
                             
-                            <a class="navbar-brand" style="color:black" href="{% url 'editarPerfil' %}"><h4>Editar Perfil</h4></a>
+                            <a class="navbar-brand"  href="{% url 'editarPerfil' %}"><h4>Editar Perfil</h4></a>
                         {% endif %}
                         
                         
                         
                         {% if not request.user.is_authenticated %} 
-                        <a class="btn btn-success" href="{% url 'login' %}"style="font-size:15px; vertical-align: middle; height: 45px"><i>LOGIN</i></a>
+                        <a class="btn btn-success" href="{% url 'login' %}"style="font-size:15px; vertical-align: top; height: 45px"><i>LOGIN</i></a>
                         {% else %}
 
                             {% if imagen is None %}
@@ -53,70 +52,52 @@
                             </a>
                             {% endif %}
                             
-                            <a class="navbar-brand" style="color:black" href="#"><h3><i> {{ request.user.username }}</i></h3></a>
+                            <a class="navbar-brand"  href="#"><h3><i> {{ request.user.username }}</i></h3></a>
 
                             
                         
                             <a class="btn btn-danger"  href="{% url 'logout' %}" style="font-size:15px; vertical-align: middle; height: 45px"><i>LOGOUT</i></a>
                         {% endif %}
-                </ul>
+                
             </div>
             
             
         
         
-            <div class="container px-4 px-lg-5">
-                <ul class="nav justify-content-start">
-                <a class="navbar-brand" href="{% url 'inicio' %}" style="color: black"><h3>Negocios</h3></a>
-                <a class="navbar-brand"  href="{% url 'about' %}"style="color: black"><h3>Nosotros</h3></a>
+            <div class="container" style="display:inline-flex; justify-content:start;">
+                
+                <a class="navbar-brand" href="{% url 'inicio' %}" style="color: black"><h2>Negocios</h2></a>
+                <a class="navbar-brand"  href="{% url 'about' %}"style="color: black"><h2>Nosotros</h2></a>
                 {% if not request.user.is_authenticated %} 
                 {% else %}
-                    <a class="navbar-brand" href="{% url 'clientes' %}"><h3>Clientes</h3></a>
-                    <a class="navbar-brand" href="{% url 'proveedores' %}"><h3>Proveedores</h3></a>
-                    <a class="navbar-brand" href="{% url 'articulos' %}"><h3>Artículos</h3></a>
-                    <a class="navbar-brand" href="{% url 'todosUsuarios' %}"><h3>Chat</h3></a>
+                    <a class="navbar-brand" href="{% url 'clientes' %}"><h2>Clientes</h2></a>
+                    <a class="navbar-brand" href="{% url 'proveedores' %}"><h2>Proveedores</h2></a>
+                    <a class="navbar-brand" href="{% url 'articulos' %}"><h2>Artículos</h2></a>
+                    <a class="navbar-brand" href="{% url 'todosUsuarios' %}"><h2>Chat</h2></a>
                 {% endif %}
-                </ul>
+                
             </div>
         </nav>
         
         
         
         
-        <!--
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        -->
+    
         
         <!-- Page Header-->
         <header class="masthead" style="background-image: url('../../static/AppNegocio/assets/img/home-bg.jpg')">
-            <div class="container position-relative px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-md-10 col-lg-8 col-xl-7">
-                        <div class="site-heading">
-                            <h1 style="color:white">
+            <div class="container position-relative px-4 px-lg-5"style="justify-content: center;">
+                <div  style="justify-content: center; align-content: start; display: flex;">
+                    
+                        
+                            <div style="justify-content: center; align-content: center; display: block; color:white">
                                 {% block titulo %}
 
                                 {% endblock %}
-                            </h1>
+                            </div>
                             <!--<span class="subheading">A Blog Theme by Start Bootstrap</span> -->
-                        </div>
-                    </div>
+                        
+                    
                 </div>
             </div>
         </header>

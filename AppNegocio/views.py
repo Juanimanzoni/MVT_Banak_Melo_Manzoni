@@ -3,8 +3,10 @@ from this import d
 from django import http
 from django.shortcuts import render
 from AppNegocio.models import *
+from AppMensajes.models import *
 from django.http import HttpResponse
 from AppNegocio.forms import *
+from AppMensajes.forms import *
 import datetime
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -657,8 +659,7 @@ def about(request):
 def todosUsuarios(request):
 
     #print(request.user.username)
-            
-
+       
     usuarios=User.objects.values()
     try:
         imagen=Avatar.objects.filter(user= request.user.id)[0].imagen.url   

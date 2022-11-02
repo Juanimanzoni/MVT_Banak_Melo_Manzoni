@@ -15,23 +15,18 @@
     {% for usuario in usuarios %}
         {% if request.user.username == usuario.username %}
         {% else %}
-            <h6>{{usuario.username}}
+            <div style="margin-left:40px">{{usuario.username}}
                 <button type="button" class="btn btn-link">
                     <a style="color:white" href="{% url 'chatIndiv' %}">Ver Chat Individual</a>
                 </button>
-            </h6>
-                    
+            </div>
         {% endif %}
     {% endfor %}
 </table>
 
-
-
 {% endblock %}
 
-
 {% block contenido_que_cambia %}
-
 
 
 {% endblock %}

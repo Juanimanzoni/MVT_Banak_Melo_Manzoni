@@ -10,26 +10,31 @@
 </button>
 </h3>
 <ul>
-    {% for mensaje in mensajes %}
-        <ul>
-            <h5>
-                De: {{ mensaje.emisor_mensaje }}<br>
-                Fecha: {{ mensaje.fecha_mensaje }}<br>
-                Mensaje:<br> 
-                {{ mensaje.texto_mensaje }}<br>
-                <img src="{{ mensaje.imagen_mensaje }}"  alt="Sin Imagen"  width="60" 
-                height="50"/> <br>
-                
-                {% if mensaje.leido_mensaje is False %}
-                    <button type="button" class="btn btn-link">
-                        <a style="color:blue" href="{%  url 'marcarLeidoIndiv' mensaje.id %}">Marcar Leído</a> <br>
-                    </button>
-                {% endif %}
+    {% if mensajes is none}
+        No existen mensajes en este chat
+    (% else %)
 
-            </h5>
-        </ul>
+        {% for mensaje in mensajes %}
+            <ul>
+                <h5>
+                    De: {{ mensaje.emisor_mensaje }}<br>
+                    Fecha: {{ mensaje.fecha_mensaje }}<br>
+                    Mensaje:<br> 
+                    {{ mensaje.texto_mensaje }}<br>
+                    <img src="{{ mensaje.imagen_mensaje }}"  alt="Sin Imagen"  width="60" 
+                    height="50"/> <br>
+                    
+                    {% if mensaje.leido_mensaje is False %}
+                        <button type="button" class="btn btn-link">
+                            <a style="color:blue" href="{%  url 'marcarLeidoIndiv' mensaje.id %}">Marcar Leído</a> <br>
+                        </button>
+                    {% endif %}
 
-    {% endfor %}
+                </h5>
+            </ul>
+
+        {% endfor %}
+    {% endif %}    
 </ul>
 
 
